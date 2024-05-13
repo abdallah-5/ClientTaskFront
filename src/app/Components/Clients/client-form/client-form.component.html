@@ -1,0 +1,123 @@
+<div>
+  <div class="modal-content">
+    <form [formGroup]="ClientForm" (ngSubmit)="saveClient(ClientForm.value)">
+      <div class="modal-header">
+        <h5 class="modal-title" id="columnModalLabel">{{ ClientIdForEdit ? 'Edit Client' : 'Add Client' }}</h5>
+      </div>
+      <div class="modal-body">
+
+        <!-- First Name -->
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-3">
+              <label for="first-name-id" class="form-label">First Name <span class="tx-danger">*</span></label>
+            </div>
+            <div class="col-md-9">
+              <input
+                formControlName="firstName"
+                [ngClass]="{'has-success': this.firstNameCtr.valid}"
+                name="firstName"
+                id="first-name-id"
+                class="form-control"
+                placeholder="Enter First Name"
+                type="text"
+                minlength="2"
+                maxlength="100" />
+              <div *ngIf="firstNameCtr.invalid && (firstNameCtr.dirty || firstNameCtr.touched)" class="tx-danger">
+                <div *ngIf="firstNameCtr.errors?.['required']">First Name is required!</div>
+                <div *ngIf="firstNameCtr.errors?.['minlength']">You must enter at least 2 character!</div>
+                <div *ngIf="firstNameCtr.errors?.['maxlength']">First Name must not exced 100 character!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group mt-2">
+          <div class="row">
+            <div class="col-md-3">
+              <label for="last-name-id" class="form-label">Last Name <span class="tx-danger">*</span></label>
+            </div>
+            <div class="col-md-9">
+              <input
+                formControlName="lastName"
+                [ngClass]="{'has-success': this.lastNameCtr.valid}"
+                name="lastName"
+                id="last-name-id"
+                class="form-control"
+                placeholder="Enter Last Name"
+                type="text"
+                minlength="2"
+                maxlength="100" />
+              <div *ngIf="lastNameCtr.invalid && (lastNameCtr.dirty || lastNameCtr.touched)" class="tx-danger">
+                <div *ngIf="lastNameCtr.errors?.['required']">Last Name is required!</div>
+                <div *ngIf="lastNameCtr.errors?.['minlength']">You must enter at least 2 character!</div>
+                <div *ngIf="lastNameCtr.errors?.['maxlength']">Last Name must not exced 100 character!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group mt-2">
+          <div class="row">
+            <div class="col-md-3">
+              <label for="email-id" class="form-label">Email <span class="tx-danger">*</span></label>
+            </div>
+            <div class="col-md-9">
+              <input
+                formControlName="email"
+                [ngClass]="{'has-success': this.emailCtr.valid}"
+                name="email"
+                id="email-id"
+                class="form-control"
+                placeholder="Enter Email Address"
+                type="email"
+                minlength="7"
+                maxlength="100" />
+              <div *ngIf="emailCtr.invalid && (emailCtr.dirty || emailCtr.touched)" class="tx-danger">
+                <div *ngIf="emailCtr.errors?.['required']">Email is required!</div>
+                <div *ngIf="emailCtr.errors?.['minlength']">You must enter at least 7 character!</div>
+                <div *ngIf="emailCtr.errors?.['maxlength']">Email must not exced 100 character!</div>
+                <div *ngIf="emailCtr.errors?.['email']">You must enter valid email!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-group mt-2">
+          <div class="row">
+            <div class="col-md-3">
+              <label for="phone-number-id" class="form-label">Phone Number <span class="tx-danger">*</span></label>
+            </div>
+            <div class="col-md-9">
+              <input
+                formControlName="phoneNumber"
+                [ngClass]="{'has-success': this.phoneNumberCtr.valid}"
+                name="phoneNumber"
+                id="phone-number-id"
+                class="form-control"
+                placeholder="Enter Phone Number"
+                type="text"
+                minlength="10"
+                maxlength="15" />
+              <div *ngIf="phoneNumberCtr.invalid && (phoneNumberCtr.dirty || phoneNumberCtr.touched)" class="tx-danger">
+                <div *ngIf="phoneNumberCtr.errors?.['required']">Phone Number is required!</div>
+                <div *ngIf="phoneNumberCtr.errors?.['minlength']">You must enter at least 11 character!</div>
+                <div *ngIf="phoneNumberCtr.errors?.['maxlength']">Phone Number must not exced 13 character!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="UpdateClientLoading || ClientForm.invalid" class="btn btn-primary" type="submit">
+          {{ UpdateClientLoading ? 'Loading...' : ClientIdForEdit ? 'Update' : 'Add' }}
+        </button>
+        <button class="btn btn-warning" type="button" (click)="modalService.dismissAll()">Close</button>
+      </div>
+    </form>
+  </div>
+</div>

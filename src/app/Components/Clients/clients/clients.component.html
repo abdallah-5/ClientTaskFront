@@ -1,0 +1,51 @@
+<div class="mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2 mb-2">
+        <button (click)="modalService.open(AddClient, { size: 'lg' })" class="btn btn-success">Add Client</button>
+      </div>
+    </div>
+    <kendo-grid
+      [data]="ClientsResponse.data"
+      [detailRowHeight]="150"
+      [pageSize]="ClientsResponse.pageSize"
+      [pageable]="true"
+      [skip]="ClientsResponse.pageIndex"
+      class="custom-grid">
+      <ng-template kendoGridDetailTemplate let-client>
+        <div class="client-details">
+          <h4>Client Details</h4>
+          <p><strong>ID:</strong> {{ client.id }}</p>
+          <p><strong>First Name:</strong> {{ client.firstName }}</p>
+          <p><strong>Last Name:</strong> {{ client.lastName }}</p>
+          <p><strong>Email:</strong> {{ client.email }}</p>
+          <p><strong>Phone Number:</strong> {{ client.phoneNumber }}</p>
+        </div>
+      </ng-template>
+      <kendo-grid-column field="id" title="ID" class="custom-column"></kendo-grid-column>
+      <kendo-grid-column field="firstName" title="First Name" class="custom-column"></kendo-grid-column>
+      <kendo-grid-column field="lastName" title="Last Name" class="custom-column"></kendo-grid-column>
+      <kendo-grid-column field="email" title="Email" class="custom-column"></kendo-grid-column>
+      <kendo-grid-column field="phoneNumber" title="Phone Number" class="custom-column"></kendo-grid-column>
+      <kendo-grid-command-column title="Actions" class="custom-column">
+        <ng-template kendoGridCellTemplate let-client>
+          <button [primary]="true" kendoGridEditCommand (click)="getDataForEdit(client)">Edit</button>
+          <button kendoGridRemoveCommand (click)="deleteClient(client.id)">Remove</button>
+        </ng-template>
+      </kendo-grid-command-column>
+    </kendo-grid>
+  </div>
+</div>
+
+<ng-template #AddClient>
+  <app-client-form
+    (getClienttsHandler)="getClientsList()">
+  </app-client-form>
+</ng-template>
+
+<ng-template #EditClient>
+  <app-client-form
+    [ClientIdForEdit]="TempClientIdForEdit"
+    (getClienttsHandler)="getClientsList()">
+  </app-client-form>
+</ng-template>
